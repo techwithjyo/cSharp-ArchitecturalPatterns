@@ -36,6 +36,16 @@ namespace DesignPatternSamples
             Console.WriteLine($"Instance1 HashCode: {instance1.GetHashCode()}");
             Console.WriteLine($"Instance2 HashCode: {instance2.GetHashCode()}");
             Console.WriteLine($"Are instances equal: {ReferenceEquals(instance1, instance2)}");
+
+            Console.WriteLine("Testing Lazy Singleton Pattern\n");
+
+            // Test basic lazy singleton
+            Console.WriteLine("Accessing LazySingleton...");
+            var singleton1 = LazySingleton.Instance;
+            var singleton2 = LazySingleton.Instance;
+            Console.WriteLine($"Instance1 HashCode: {singleton1.GetHashCode()}");
+            Console.WriteLine($"Instance2 HashCode: {singleton2.GetHashCode()}");
+            Console.WriteLine($"Instances are same: {ReferenceEquals(singleton1, singleton2)}\n");
         }
     }
     // Singleton Pattern = Static + Thread Safe + Lazy Loading + Performance
@@ -47,7 +57,7 @@ namespace DesignPatternSamples
         //3. Private constructor to prevent external instantiation
         private Singleton()
         {
-            
+
         }
         private static Singleton _instance; //1.Single class whole part
 
@@ -99,6 +109,32 @@ namespace DesignPatternSamples
         {
             _counter++;
             return $"Instance created at: {_created}, Access count: {_counter}";
+        }
+    }
+    //Lazy Singleton: Defers object creation until first use + Thread-safe by default + Better performance +
+    //Memory efficient + No explicit locking required
+    public sealed class LazySingleton
+    {
+        // Lazy<T> handles thread-safety and initialization
+        private static readonly Lazy<LazySingleton> _instance =
+            new Lazy<LazySingleton>(() => new LazySingleton());
+
+        // For demonstration
+        private readonly DateTime _created;
+
+        // Private constructor
+        private LazySingleton()
+        {
+            _created = DateTime.Now;
+            Console.WriteLine($"Instance created at: {_created}");
+        }
+
+        // Public access property
+        public static LazySingleton Instance => _instance.Value;
+
+        public void DoSomething()
+        {
+            Console.WriteLine($"Using instance created at: {_created}");
         }
     }
 }
