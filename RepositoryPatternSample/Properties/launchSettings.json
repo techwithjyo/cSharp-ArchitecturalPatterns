@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RepositoryPatternSample": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
