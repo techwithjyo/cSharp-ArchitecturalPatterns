@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SOLID Principles": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
